@@ -20,14 +20,18 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public Model login(Model model){
+    public String login(Model model){
         model.addAttribute("newUser", new User());
-        return model;
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("newUser") User user, Model model){
         User existingUser = userService.findByName(user);
+        if (existingUser != null) {
+            model.addAttribute("userFromDb", existingUser);
+            return "welcome";
+        }
         return "error";
     }
 }

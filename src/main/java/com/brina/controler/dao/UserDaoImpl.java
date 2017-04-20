@@ -18,25 +18,23 @@ public class UserDaoImpl implements UserDao {
         this.dataSource=dataSource;
     }
 
-
-
     @Override
     public User findByName(User user) {
         Connection connection=null;
-        User userFromDB=null;
-        String query="select * from users where name = ?";
+        User userFromDB = new User();
+        String query="select * from USERS where name = ?";
 
         try{
             connection = dataSource.getConnection();
-            PreparedStatement statement=connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getName());
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()){
-                user.setName(resultSet.getString("name"));
-                user.setPassword(resultSet.getString("password"));
+            if (resultSet.next()) {
+                userFromDB.setName(resultSet.getString("name"));
+                userFromDB.setPassword(resultSet.getString("password"));
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return userFromDB;

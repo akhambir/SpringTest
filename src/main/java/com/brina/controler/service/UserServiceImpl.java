@@ -18,6 +18,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByName(User user) {
-        return null;
+        return userDao.findByName(user);
     }
 }
