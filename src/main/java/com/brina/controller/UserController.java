@@ -1,7 +1,7 @@
-package com.brina.controler.controller;
+package com.brina.controller;
 
-import com.brina.controler.model.User;
-import com.brina.controler.service.UserService;
+import com.brina.model.User;
+import com.brina.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +27,25 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("newUser") User user, Model model){
-        User existingUser = userService.findByName(user);
+        User existingUser = userService.findUser(user);
         if (existingUser != null) {
             model.addAttribute("userFromDb", existingUser);
-            return "welcome";
         }
-        return "error";
+        return "welcome";
+    }
+
+    @RequestMapping("/register")
+    public String registration(Model model) {
+        model.addAttribute("newUser", new User());
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("newUser") User user, Model model) {
+        User existingUser = userService.addUser(user);
+        if (existingUser != null) {
+            model.addAttribute("userFromDb", existingUser);
+        }
+        return "welcome";
     }
 }

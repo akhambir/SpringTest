@@ -1,14 +1,32 @@
-package com.brina.controler.model;
+package com.brina.model;
 
-public class User {
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "password")
     private String password;
 
-    public User(){}
+    @Column(name = "email")
+    private String email;
 
-    public User(String name, String password){
-        this.name=name;
-        this.password=password;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -25,6 +43,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

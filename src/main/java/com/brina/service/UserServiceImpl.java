@@ -1,9 +1,8 @@
-package com.brina.controler.service;
+package com.brina.service;
 
-import com.brina.controler.dao.UserDao;
-import com.brina.controler.model.User;
+import com.brina.dao.UserDao;
+import com.brina.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(User user) {
-        return userDao.findByName(user);
+    public User findUser(User user) {
+        return userDao.findUser(user);
+    }
+
+    @Override
+    public User addUser(User user) {
+        return userDao.addUser(user);
     }
 }
